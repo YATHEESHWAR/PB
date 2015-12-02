@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<head>
+<title>Tweets By Language Visual</title>
+    <meta HTTP-EQUIV="X-UA-COMPATIBLE" CONTENT="IE=EmulateIE9" >
+    <script type="text/javascript" src="scripts/d3.min.js" ></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="scripts/radialProgress.js"></script>
+    <link type="text/css" rel="stylesheet" href="styles/style.css">
+
+    <style>
+
+        #test .arc2 {
+            stroke-weight:0.1;
+            fill: #3660b0;
+        }
+
+        #outer {
+            background:#FFFFFF;
+            border-radius: 5px;
+            color: #000;
+        }
+
+        #div1, #div2, #div3, #div4 {
+            width: 33%;
+            height: 200px;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        #div2 .arc {
+            stroke-weight: 0.1;
+            fill: #f0a417;
+        }
+
+        #div2 .arc2 {
+            stroke-weight: 0.1;
+            fill: #b00d08;
+        }
+
+        #div3 .arc {
+            stroke-weight: 0.1;
+            fill: #1d871b;
+        }
+
+
+        .selectedRadial {
+            border-radius: 3px;
+            background: #f4f4f4;
+            color: #000;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            border: 1px solid rgba(200,200,200,0.85);
+        }
+
+        .radial {
+            border-radius: 3px;
+            background: #FFFFFF;
+            color	: #000;
+
+        }
+
+
+    </style>
+</head>
+
+<body>
+<p style="font-size: large;color: Blue;">Total Tweets:</p><p style="font-size: large;color: Red;">200056</p>
+<div id='outer' style="width: 1000px; height:800px; margin: 0px auto; margin-top:20px; padding:10px">
+    <div id="main" style="width:1000px; height:200px; margin: 0px auto; ">
+        <div id="div1"></div>
+        <div id="div2"></div>
+        <div id="div3"></div>
+        </div><br/><br/><br/><br/>
+        <div id="main2" style="width:1000px; height:302px; margin: 0px auto; ">
+        <div id="div4" style="float: left;"></div>
+        <div id="div5" style="float: left;"></div>
+        <div id="div6" style="float: right;"></div>
+    </div>
+</div>    
+<script language="JavaScript">
+
+    var div1=d3.select(document.getElementById('div1'));
+    var div2=d3.select(document.getElementById('div2'));
+    var div3=d3.select(document.getElementById('div3'));
+    var div4=d3.select(document.getElementById('div4'));
+    var div5=d3.select(document.getElementById('div5'));
+    var div6=d3.select(document.getElementById('div6'));
+	var rows;
+    d3.csv("res1.csv", function(data) {
+    	  rows = data;
+		var x=rows[0].Language;
+		var c=rows[0].Count;
+		var v=(c/200056)*100;
+    	var rp1 = radialProgress(document.getElementById('div1'))
+                .label(x+"\t"+c)
+                .diameter(200)
+                .value(v)
+                .render();
+
+        var rp2 = radialProgress(document.getElementById('div2'))
+                .label(rows[1].Language+"\t"+rows[1].Count)
+                .diameter(200)
+                .value((rows[1].Count/200056)*100)
+                .render();
+
+        var rp3 = radialProgress(document.getElementById('div3'))
+                .label(rows[2].Language+"\t"+rows[2].Count)
+                .diameter(200)
+                .value((rows[2].Count/200056)*100)
+                .render();
+        var rp4 = radialProgress(document.getElementById('div4'))
+		        .label(rows[3].Language+"\t"+rows[3].Count)
+		        .diameter(200)
+		        .value((rows[3].Count/200056)*100)
+		        .render();
+        var rp5 = radialProgress(document.getElementById('div5'))
+		        .label(rows[4].Language+"\t"+rows[4].Count)
+		        .diameter(200)
+		        .value((rows[4].Count/200056)*100)
+		        .render();
+        var rp6 = radialProgress(document.getElementById('div6'))
+		        .label(rows[5].Language+"\t"+rows[5].Count)
+		        .diameter(200)
+		        .value((rows[5].Count/200056)*100)
+		        .render();
+    });
+</script>
+
+</body>
+</html>
